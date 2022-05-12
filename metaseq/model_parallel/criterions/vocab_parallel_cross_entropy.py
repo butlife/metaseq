@@ -48,11 +48,7 @@ class VocabParallelCrossEntropyCriterion(BaseCriterion):
         loss = loss.sum()
         # When using target loss only, use num tokens in target only as the sample_size
         # See StreamingSrcTgtDataset
-        sample_size = (
-            sample["ntokens_target"]
-            if "ntokens_target" in sample
-            else sample["ntokens"]
-        )
+        sample_size = sample["n_target_tokens"] if "n_target_tokens" in  sample else sample["ntokens"]
         logging_output = {
             "loss": loss.data,
             "ntokens": sample["ntokens"],
